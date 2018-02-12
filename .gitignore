@@ -13,7 +13,7 @@ TestResults
 *.suo
 *.user
 *.sln.docstates
-DS.store
+.DS.store
 
 # Build results
 [Dd]ebug/
