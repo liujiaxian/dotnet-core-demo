@@ -20,6 +20,13 @@
     </div>
   <input type="button" value="验证码核验" class="ver_btn" onClick="$('#txtCode').attr('src','/account/validatecode?id='+Math.random())">
  </dd>
+  <dd style="height:auto;">
+    <div style="float:left;"><a href="/account/findpassword">忘记密码</a></div>
+
+    <div style="float:right;"><a href="/account/register">注册</a></div>
+
+    <div style="clear:both;"></div>
+ </dd>
  <dd>
   <input type="button" value="立即登陆" class="submit_btn"/>
  </dd>
@@ -60,7 +67,7 @@
             $.post("/Account/LoginValidate",pams,function(data){
                 layer.closeAll();
                 if(data.code == 0){
-                    alertSuccess("登录成功");
+                    alertSuccessRedirect("登录成功","/home/index",700);
                 }else{
                     alertError(data.msg);
                 }

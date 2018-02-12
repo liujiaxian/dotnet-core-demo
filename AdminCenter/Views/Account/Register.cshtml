@@ -7,18 +7,103 @@
 }
 
  <dd class="user_icon">
-  <input type="text" placeholder="账号" class="login_txtbx"/>
+  <input type="text" placeholder="邮箱" class="login_txtbx login_email"/>
+ </dd>
+  <dd class="user_icon">
+  <input type="text" placeholder="帐号" class="login_txtbx login_account"/>
  </dd>
  <dd class="pwd_icon">
-  <input type="password" placeholder="密码" class="login_txtbx"/>
+  <input type="password" placeholder="密码" class="login_txtbx login_password"/>
+ </dd>
+  <dd class="pwd_icon">
+  <input type="password" placeholder="确认密码" class="login_txtbx login_confirm_password"/>
  </dd>
  <dd class="val_icon">
-  <div class="checkcode">
-    <input type="text" id="J_codetext" placeholder="验证码" maxlength="4" class="login_txtbx">
-    <canvas class="J_codeimg" id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
-  </div>
-  <input type="button" value="验证码核验" class="ver_btn" onClick="validate();">
+ <div class="checkcode">
+    <input type="text" id="J_codetext" placeholder="验证码" maxlength="4" class="login_code login_txtbx">
+    <!--<canvas class="J_codeimg" id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>-->
+    <img src="/account/validatecode" id="txtCode" onclick="this.src='/account/validatecode?id='+Math.random()" style="width:85px;height:42px;" />
+    </div>
+  <input type="button" value="验证码核验" class="ver_btn" onClick="$('#txtCode').attr('src','/account/validatecode?id='+Math.random())">
+ </dd>
+   <dd style="height:auto;">
+    <div style="float:left;"><a href="/account/findpassword">忘记密码</a></div>
+
+    <div style="float:right;"><a href="/account/login">登录</a></div>
+
+    <div style="clear:both;"></div>
  </dd>
  <dd>
-  <input type="button" value="立即登陆" class="submit_btn"/>
+  <input type="button" value="立即注册" class="submit_btn"/>
  </dd>
+
+ @section Scripts{
+    <script type="text/javascript">
+        $(".submit_btn").click(function(){
+            var email = $(".login_email").val();
+            if(!email){
+                alertError("请输入邮箱！");
+                $(".login_email").focus();
+                return;
+            }
+
+            if(!CheckMail(email)){
+                alertError("邮箱格式不正确！");
+                $(".login_email").focus();
+                return;
+            }
+    
+            var account = $(".login_account").val();
+            if(!account){
+                alertError("请输入登录帐号！");
+                $(".login_account").focus();
+                return;
+            }
+
+            var password = $(".login_password").val();
+            if(!password){
+                alertError("请输入登录密码！");
+                $(".login_password").focus();
+                return;
+            }
+
+            if(password.length<6){
+                alertError("登录密码不能小于6个字符！");
+                $(".login_password").focus();
+                return;
+            }
+    
+            var confirmPassword = $(".login_confirm_password").val();
+            if(password != confirmPassword){
+                alertError("登录密码与确认密码不一致！");
+                $(".login_confirm_password").focus();
+                return;
+            }
+
+            var vcode = $(".login_code").val();
+            if(!vcode){
+                alertError("请输入验证码！");
+                $(".login_code").focus();
+                return;
+            }
+
+            var pams = {
+                email:email,
+                account:account,
+                password:password,
+                vcode:vcode
+            }
+
+            loading("注册校验中...");
+
+            $.post("/Account/UserRegister",pams,function(data){
+                layer.closeAll();
+                if(data.code == 0){
+                    alertSuccess("注册成功","/account/login",700);          
+                }else{
+                    alertError(data.msg);
+                }
+            },"json");        
+        });
+    </script>
+}

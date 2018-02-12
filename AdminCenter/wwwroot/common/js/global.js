@@ -1,9 +1,16 @@
 ﻿function loading(msg) {
-    return layer.msg(msg,{icon:16,time:0,shade:[0.3, '#393D49']})
+    return layer.msg(msg,{icon:16,time:0,shade:[0.3, '#393D49']});
 }
 
 function alertSuccess(msg){
     layer.msg(msg,{icon:1});
+}
+
+function alertSuccessRedirect(msg,url,time){
+    layer.msg(msg,{icon:1});
+    setTimeout(function(){
+        window.location.href = url;
+    }, time);
 }
 
 function alertError(msg){

@@ -8,7 +8,6 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,5 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Utility\Utility.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 </Project>

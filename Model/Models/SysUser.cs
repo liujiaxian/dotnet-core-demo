@@ -11,6 +11,6 @@ namespace Model.Models
 
         public string UserEmail { get; set; }
 
-        public string CreatedTime { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

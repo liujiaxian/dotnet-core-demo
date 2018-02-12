@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AdminCenter.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Authorization;
+using AdminCenter.Framework;
 
 namespace AdminCenter.Controllers
 {
-    [Authorize]
+    [AdminAuthorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
