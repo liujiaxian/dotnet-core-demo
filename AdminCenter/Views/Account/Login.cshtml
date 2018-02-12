@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_LayoutAccount";
+    ViewData["Title"] = "登录";
+}
+
+ <dd class="user_icon">
+  <input type="text" placeholder="账号" class="login_txtbx login_account"/>
+ </dd>
+ <dd class="pwd_icon">
+  <input type="password" placeholder="密码" class="login_txtbx login_password"/>
+ </dd>
+ <dd class="val_icon">
+  <div class="checkcode">
+    <input type="text" id="J_codetext" placeholder="验证码" maxlength="4" class="login_code login_txtbx">
+    <!--<canvas class="J_codeimg" id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>-->
+    <img src="/account/validatecode" id="txtCode" onclick="this.src='/account/validatecode?id='+Math.random()" style="width:85px;height:42px;" />
+    </div>
+  <input type="button" value="验证码核验" class="ver_btn" onClick="$('#txtCode').attr('src','/account/validatecode?id='+Math.random())">
+ </dd>
+ <dd>
+  <input type="button" value="立即登陆" class="submit_btn"/>
+ </dd>
+
+
+ @section Scripts{
+    <script type="text/javascript">
+        $(".submit_btn").click(function(){
+            var account = $(".login_account").val();
+            if(!account){
+                alertError("请输入登录帐号！");
+                $(".login_account").focus();
+                return;
+            }
+
+            var password = $(".login_password").val();
+            if(!password){
+                alertError("请输入登录密码！");
+                $(".login_password").focus();
+                return;
+            }
+
+            var vcode = $(".login_code").val();
+            if(!vcode){
+                alertError("请输入验证码！");
+                $(".login_code").focus();
+                return;
+            }
+
+            var pams = {
+                account:account,
+                password:password,
+                vcode:vcode
+            }
+
+            loading("登录校验中...");
+
+            $.post("/Account/LoginValidate",pams,function(data){
+                layer.closeAll();
+                if(data.code == 0){
+                    alertSuccess("登录成功");
+                }else{
+                    alertError(data.msg);
+                }
+            },"json");        
+        });
+    </script>
+}
