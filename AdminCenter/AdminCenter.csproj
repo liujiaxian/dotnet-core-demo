@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Account\" />
+    <Folder Include="Views\**\*" />
     <Folder Include="wwwroot\account\" />
     <Folder Include="wwwroot\plugins\" />
     <Folder Include="wwwroot\common\" />
@@ -26,4 +26,5 @@
     <ProjectReference Include="..\Model\Model.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
+
 </Project>

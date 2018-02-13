@@ -27,6 +27,9 @@ namespace AdminCenter.Controllers
         //登录视图
         public IActionResult Login()
         {
+            if(HttpContext.Request.Cookies[ApplicationKeys.User_Cookie_Key]!=null){
+                return Redirect("/home/index");
+            }
             return View();
         }
 
