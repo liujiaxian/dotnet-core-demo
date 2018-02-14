@@ -11,6 +11,9 @@ namespace Model.Models
 
         public string UserEmail { get; set; }
 
+        public string EmailToken { get; set; }
+        public DateTime EmailExpire { get; set; }
+
         public DateTime CreatedTime { get; set; }
     }
 }

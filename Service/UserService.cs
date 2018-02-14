@@ -91,6 +91,40 @@ namespace Service
             }
         }
 
+        /// <summary>
+        /// 判断用户账号和邮箱是否存在
+        /// </summary>
+        /// <returns><c>true</c>, if exist account was ised, <c>false</c> otherwise.</returns>
+        /// <param name="account">Account.</param>
+        public bool CheckEmailAndAccount(string email, string account)
+        {
+            var userModel = DB.Queryable<SysUser>().Single(f => f.UserName == account && f.UserEmail==email);
+            if (userModel != null)    //存在则登录成功, 写入Cookie  
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateEmailTokenAndExpire(string email, string account)
+        {
+            var userModel = DB.Queryable<SysUser>().Single(f => f.UserEmail == email);
+            if (userModel != null)    //存在则登录成功, 写入Cookie  
+            {
+                string token = Guid.NewGuid().ToString().Replace("-","");
+                userModel.EmailToken = token;
+                userModel.EmailExpire = DateTime.Now;
+                var t1 = DB.Updateable(userModel).UpdateColumns(it => new { it.EmailToken,it.EmailExpire }).ExecuteCommand();
+                if(t1>0){
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
 
         #region 登录使用的加密解密方法
         /// <summary>

@@ -39,6 +39,20 @@ namespace Service
         bool IsExistEmail(string email);
 
         /// <summary>
+        /// 判断邮箱和帐号是否存在
+        /// </summary>
+        /// <returns><c>true</c>, if exist email was ised, <c>false</c> otherwise.</returns>
+        /// <param name="email">Email.</param>
+        bool CheckEmailAndAccount(string email,string account);
+
+        /// <summary>
+        /// 更新邮箱密钥和过期时间
+        /// </summary>
+        /// <returns><c>true</c>, if exist email was ised, <c>false</c> otherwise.</returns>
+        /// <param name="email">Email.</param>
+        bool UpdateEmailTokenAndExpire(string email,string account);
+
+        /// <summary>
         /// 登录时使用的加密方法
         /// </summary>
         /// <param name="encryptString"></param>
