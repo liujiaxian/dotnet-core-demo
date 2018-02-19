@@ -157,6 +157,20 @@ find / -name supervisor.sock
 unlink /name/supervisor.sock
 ```
 
+- Supervisor 常用命令
+
+```
+supervisorctl start all
+
+supervisorctl stop all
+
+supervisorctl status
+
+supervisorctl update
+
+supervisorctl showdown
+```
+
 - 配置Supervisor开机启动
 
 新建一个“supervisord.service”文件
