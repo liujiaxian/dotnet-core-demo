@@ -205,14 +205,14 @@ systemctl is-enabled supervisord
 
 - 端口没有激活
 
-···
+```
 iptables -A INPUT -p tcp --dport 5000 -j ACCEPT  
-···
+```
 
 - 端口被占用
 
-···
+```
  netstat -lnp|grep 5000
 
  kill {pid}
-···
+```
